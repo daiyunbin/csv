@@ -48,11 +48,12 @@ class Mysql:
 class Csv:
     def __init__(self,filename):
 
-        if filename in settings.TABLES['IGNORED_TABLE']:
-            self.ignore = True
+        self.ignore = filename in settings.IGNORED_TABLE
+        if self.ignore:
             return
-        self.ignore = False
-        self.ignoreColumn = settings.TABLES['IGNORED_TABLE_COLUMN'].get(filename)
+        print(filename + ":" + str(self.ignore))
+
+        self.ignoreColumn = settings.IGNORED_TABLE_COLUMN.get(filename)
 
         self.path = settings.CSV_PATH
         if self.path[-1] != "/":
